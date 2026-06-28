@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Ambiente / segredos
+.env
+
+# MLflow
+mlruns/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dados grandes (versione apenas amostras .sample.csv)
+data/kaggle/*.csv
+!data/kaggle/*.sample.csv
+
+# SO
+.DS_Store
