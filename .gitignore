@@ -29,3 +29,6 @@ mlartifacts/
 
 # log de decisao (gerado em runtime)
 reports/decision_log.jsonl
+
+# artefatos de modelo (regenerados por make pipeline / lifecycle)
+models/

@@ -126,21 +126,36 @@ class UCB1(Policy):
 
 
 class ContextualThompson(Policy):
-    """Um Thompson Sampling por segmento -> a decisao depende do contexto."""
+    """Um Thompson Sampling por CHAVE de contexto (criada sob demanda).
+
+    `context_keys` define quais campos formam a chave:
+    - ("segment",)             -> um modelo por segmento (padrao, mais simples);
+    - ("segment", "channel")   -> por segmento E canal (contexto mais fino).
+
+    Os modelos sao criados na hora em que uma chave nova aparece (cold-start),
+    cada um com prior Beta(1,1).
+    """
 
     def __init__(
         self,
         arms: tuple[str, ...] = ARMS,
-        segments: tuple[str, ...] = ("novo", "recorrente", "reativado"),
+        context_keys: tuple[str, ...] = ("segment",),
         seed: int = 0,
     ) -> None:
         self.name = "thompson_contextual"
-        self.models = {
-            seg: ThompsonSampling(arms, seed=seed + i) for i, seg in enumerate(segments)
-        }
+        self.arms = arms
+        self.context_keys = context_keys
+        self.seed = seed
+        self.models: dict[str, ThompsonSampling] = {}
+
+    def _key(self, context: dict) -> str:
+        return "|".join(str(context[k]) for k in self.context_keys)
 
     def _model(self, context: dict) -> ThompsonSampling:
-        return self.models[context["segment"]]
+        key = self._key(context)
+        if key not in self.models:
+            self.models[key] = ThompsonSampling(self.arms, seed=self.seed + len(self.models))
+        return self.models[key]
 
     def select(self, context: dict) -> str:
         return self._model(context).select(context)
@@ -160,10 +175,11 @@ class ContextualThompson(Policy):
         return self._model(context).estimated_mean(arm)
 
     def export(self) -> dict[str, dict]:
-        """Serializa o estado de todos os segmentos."""
-        return {seg: m.export() for seg, m in self.models.items()}
+        """Serializa o estado de todas as chaves de contexto."""
+        return {key: m.export() for key, m in self.models.items()}
 
     def load(self, state: dict[str, dict]) -> None:
-        for seg, st in state.items():
-            if seg in self.models:
-                self.models[seg].load(st)
+        for key, st in state.items():
+            model = ThompsonSampling(self.arms)
+            model.load(st)
+            self.models[key] = model

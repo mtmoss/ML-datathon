@@ -1,6 +1,6 @@
 # Atalhos do projeto. Uso: make <alvo>
 
-.PHONY: install pipeline serve test lint decide clean
+.PHONY: install pipeline retrain serve test lint decide clean
 
 install:        ## instala o pacote e ferramentas de dev
 	pip install -e ".[dev]"
@@ -11,6 +11,9 @@ pipeline:       ## roda o fluxo ponta a ponta (dados -> bandits -> avaliacao -> 
 	python -m datathon_offerexp.evaluation
 	python -m datathon_offerexp.offline_eval
 	python -m datathon_offerexp.policy_store
+
+retrain:        ## ciclo MLOps: champion-challenger, aprovacao, promocao e rollback
+	python -m datathon_offerexp.lifecycle
 
 serve:          ## sobe a API de decisao em http://localhost:8000
 	uvicorn datathon_offerexp.app:app --reload

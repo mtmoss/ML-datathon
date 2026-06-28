@@ -1,0 +1,57 @@
+<svg viewBox="0 0 360 500" xmlns="http://www.w3.org/2000/svg" font-family="Courier New, monospace">
+  <rect x="0" y="0" width="360" height="500" fill="#FFFFFF"/>
+  <text x="180" y="20" text-anchor="middle" fill="#48494D" font-size="13" font-weight="bold">ETAPA 7 — CICLO DE VIDA MLOps</text>
+
+  <!-- 1 retreino -->
+  <rect x="20" y="34" width="320" height="34" rx="4" fill="#00ACF1"/>
+  <text x="180" y="50" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="bold">1. RETREINO → challenger (nova versão)</text>
+  <text x="180" y="62" text-anchor="middle" fill="#FFFFFF" font-size="8">dados novos ou nova hipótese de contexto</text>
+
+  <text x="180" y="80" text-anchor="middle" fill="#48494D" font-size="11">▼</text>
+
+  <!-- 2 compara -->
+  <rect x="20" y="86" width="320" height="34" rx="4" fill="#EE008B"/>
+  <text x="180" y="102" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="bold">2. COMPARA champion x challenger</text>
+  <text x="180" y="114" text-anchor="middle" fill="#FFFFFF" font-size="8">critério: ganho de conversão ≥ 0,3 pp</text>
+
+  <text x="180" y="132" text-anchor="middle" fill="#48494D" font-size="11">▼</text>
+
+  <!-- 3 gate -->
+  <rect x="20" y="138" width="320" height="36" rx="4" fill="#FFF300"/>
+  <text x="180" y="155" text-anchor="middle" fill="#48494D" font-size="10" font-weight="bold">3. GATE — aprovação humana obrigatória</text>
+  <text x="180" y="168" text-anchor="middle" fill="#48494D" font-size="8">sem approved_by, não promove</text>
+
+  <text x="180" y="186" text-anchor="middle" fill="#48494D" font-size="11">▼</text>
+
+  <!-- 4 promove / 5 monitora -->
+  <rect x="20" y="192" width="155" height="36" rx="4" fill="#48494D"/>
+  <text x="97" y="208" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="bold">4. PROMOVE</text>
+  <text x="97" y="221" text-anchor="middle" fill="#FFF300" font-size="8">registry → champion</text>
+  <rect x="185" y="192" width="155" height="36" rx="4" fill="#9aa0a6"/>
+  <text x="262" y="208" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="bold">5. MONITORA</text>
+  <text x="262" y="221" text-anchor="middle" fill="#FFFFFF" font-size="8">drift (PSI) · recompensa</text>
+
+  <!-- loop / rollback -->
+  <text x="180" y="244" text-anchor="middle" fill="#48494D" font-size="8">drift &gt; 0,2 → volta ao passo 1   ·   piorou → ROLLBACK</text>
+
+  <!-- resultado real -->
+  <line x1="20" y1="256" x2="340" y2="256" stroke="#48494D" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="180" y="272" text-anchor="middle" fill="#48494D" font-size="10" font-weight="bold">demonstração executada</text>
+
+  <rect x="20" y="280" width="320" height="40" rx="4" fill="#FFFFFF" stroke="#00ACF1" stroke-width="1.5"/>
+  <text x="30" y="296" fill="#48494D" font-size="9" font-weight="bold">v1 (janela 1.500) 15,0%  →  v2 (base completa) 16,8%</text>
+  <text x="30" y="312" fill="#48494D" font-size="9">lift +1,8 pp  →  PROMOVIDO (aprovado por humano) ✓</text>
+
+  <rect x="20" y="326" width="320" height="40" rx="4" fill="#FFFFFF" stroke="#EE008B" stroke-width="1.5"/>
+  <text x="30" y="342" fill="#48494D" font-size="9" font-weight="bold">v2 16,8%  →  v3 (segmento+canal) 16,1%</text>
+  <text x="30" y="358" fill="#48494D" font-size="9">lift −0,7 pp  →  REJEITADO pelo gate (superajuste) ✗</text>
+
+  <rect x="20" y="372" width="320" height="32" rx="4" fill="#FFFFFF" stroke="#48494D" stroke-width="1.5"/>
+  <text x="180" y="392" text-anchor="middle" fill="#48494D" font-size="9" font-weight="bold">ROLLBACK testado: v2 → v1 → re-promove v2</text>
+
+  <line x1="20" y1="416" x2="340" y2="416" stroke="#48494D" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="180" y="432" text-anchor="middle" fill="#48494D" font-size="9" font-weight="bold">o gate protege a produção</text>
+  <text x="180" y="448" text-anchor="middle" fill="#48494D" font-size="8">promove o que melhora · barra o que piora</text>
+  <text x="180" y="462" text-anchor="middle" fill="#48494D" font-size="8">versionamento · MLflow · drift · aprovação · rollback</text>
+  <text x="180" y="478" text-anchor="middle" fill="#48494D" font-size="8">make retrain · 34 testes</text>
+</svg>

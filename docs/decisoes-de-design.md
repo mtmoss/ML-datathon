@@ -10,7 +10,7 @@ Legenda da coluna "Natureza":
 - **Escolha dentro do exigido**: a banca pede a categoria, mas a opção foi minha.
 - **Escolha livre**: a banca não pede; incluí por boa prática ou para antecipar etapas.
 
-> Última atualização: **Etapa 6**. Atualizado a cada etapa nova.
+> Última atualização: **Etapa 7**. Atualizado a cada etapa nova.
 
 ---
 
@@ -114,6 +114,19 @@ Legenda da coluna "Natureza":
 | Entrada | API Management | expor o Container App direto | Auth, rate limit e versão num ponto só | Escolha livre |
 | Segredos | Key Vault + Managed Identity | variáveis de ambiente | Exigido usar Key Vault + Managed Identity | Exigido |
 | Region | brazilsouth (exemplo) | outra region | Latência/LGPD no Brasil | Escolha livre |
+
+## Etapa 7 — Ciclo de vida MLOps
+
+| Decisão | O que escolhi | Alternativa | Racional | Natureza |
+|---|---|---|---|---|
+| Comparação champion-challenger | avaliação **congelada** (greedy, determinística) | re-simular online | Comparação justa entre 2 políticas já treinadas | Escolha livre |
+| Critério de promoção | lift de conversão ≥ 0,3 pp | só "melhor que" | Evita promover ganho de ruído | Escolha dentro do exigido |
+| Approval gate | `promote()` recusa sem `approved_by` | promoção automática | Humano no loop (domínio financeiro) | Exigido (aprovação humana) |
+| Registro de versões | `models/registry.json` próprio | só MLflow Model Registry | Leve e suficiente; MLflow registra os experimentos | Escolha dentro do exigido |
+| Modelos no git | **gitignore `models/`** (regenerados) | commitar artefatos | Modelo é build output, não código-fonte | Escolha livre |
+| Drift | **PSI** (Population Stability Index) | KS-test, Evidently | Simples, interpretável, limiar claro (>0,2) | Escolha dentro do exigido |
+| Demonstração | v2 promovido (+1,8pp) e v3 rejeitado | só um caso | Mostrar o gate promovendo E protegendo | Escolha livre |
+| Tracking resiliente | falha de MLflow não derruba o ciclo | deixar quebrar | Robustez operacional | Escolha livre |
 
 ## Decisões transversais
 
