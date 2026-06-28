@@ -10,7 +10,7 @@ Legenda da coluna "Natureza":
 - **Escolha dentro do exigido**: a banca pede a categoria, mas a opção foi minha.
 - **Escolha livre**: a banca não pede; incluí por boa prática ou para antecipar etapas.
 
-> Última atualização: **Etapa 5**. Atualizado a cada etapa nova.
+> Última atualização: **Etapa 6**. Atualizado a cada etapa nova.
 
 ---
 
@@ -101,6 +101,19 @@ Legenda da coluna "Natureza":
 | Log de decisão | JSONL, ignorado no git (gerado na demo) | commitar amostra | Evita crescer no repo; regenera ao rodar | Exigido (log auditável); formato = escolha |
 
 ---
+
+## Etapa 6 — Arquitetura-alvo Azure
+
+| Decisão | O que escolhi | Alternativa | Racional | Natureza |
+|---|---|---|---|---|
+| Compute | **Azure Container Apps** | AKS / Functions | Roda nosso container, escala a zero, sem complexidade de Kubernetes | Escolha dentro do exigido |
+| MLflow | self-hosted + PostgreSQL | Azure Machine Learning | Mais leve/barato para o escopo | Escolha livre |
+| Banco | PostgreSQL (Burstable) | Cosmos DB / Azure SQL | Backend do MLflow; simples e barato | Escolha dentro do exigido |
+| Eventos | Event Hubs | Service Bus | Ingestão de impressões/recompensas em fluxo | Escolha dentro do exigido |
+| LLM em produção | Azure AI Foundry | manter Claude na nuvem | Exigência: arquitetura só Azure (Claude fica no dev) | Exigido (só Azure) |
+| Entrada | API Management | expor o Container App direto | Auth, rate limit e versão num ponto só | Escolha livre |
+| Segredos | Key Vault + Managed Identity | variáveis de ambiente | Exigido usar Key Vault + Managed Identity | Exigido |
+| Region | brazilsouth (exemplo) | outra region | Latência/LGPD no Brasil | Escolha livre |
 
 ## Decisões transversais
 
