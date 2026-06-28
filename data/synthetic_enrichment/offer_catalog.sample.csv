@@ -1,0 +1,5 @@
+arm_id,arm_name,description,cost_unit,channels
+sem_oferta,Sem oferta,Controle: nenhuma acao proposta.,0.0,app|web|email
+educacao_financeira,Educacao financeira,Conteudo educativo sobre poupanca e investimento.,0.5,app|web|email
+simulador_credito,Simulador de credito,Ferramenta para simular credito/investimento.,0.8,app|web|email
+oferta_deposito,Oferta de deposito a prazo,Oferta direta de deposito a prazo.,1.0,app|web|email
